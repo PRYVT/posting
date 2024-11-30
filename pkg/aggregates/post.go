@@ -14,6 +14,7 @@ import (
 type PostAggregate struct {
 	Text          string
 	ImageBase64   string
+	UserId        uuid.UUID
 	ChangeDate    time.Time
 	Events        []models.ChangeTrackedEvent
 	aggregateType string
@@ -57,6 +58,7 @@ func (pa *PostAggregate) apply_PostCreatedEvent(e *events.PostCreatedEvent) {
 	pa.Text = e.Text
 	pa.ImageBase64 = e.ImageBase64
 	pa.ChangeDate = e.CreationDate
+	pa.UserId = e.UserId
 }
 
 func (ua *PostAggregate) addEvent(ev *models.ChangeTrackedEvent) {
