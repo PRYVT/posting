@@ -15,6 +15,18 @@
             "env": {
                 "SIGNING_SECRET": "just_an_example"
             }
+        },
+        {
+            "name": "Launch Queryer",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "output": "queryer",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/cmd/queryer/main.go",
+            "env": {
+                "SIGNING_SECRET": "just_an_example"
+            }
         }
     ]
 }
