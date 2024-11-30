@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/PRYVT/posting/pkg/models/query"
 	"github.com/PRYVT/posting/pkg/query/store/repository"
 	"github.com/PRYVT/posting/pkg/query/utils"
 	"github.com/PRYVT/utils/pkg/auth"
@@ -40,11 +41,14 @@ func (ctrl *PostController) GetPosts(c *gin.Context) {
 	limit := utils.GetLimit(c)
 	offset := utils.GetOffset(c)
 
-	users, err := ctrl.postRepo.GetAllPosts(limit, offset)
+	posts, err := ctrl.postRepo.GetAllPosts(limit, offset)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	if posts == nil {
+		posts = []query.Post{}
+	}
+	c.JSON(http.StatusOK, posts)
 
 }
