@@ -1,9 +1,13 @@
 github.com/L4B0MB4/EVTSRC v0.4.5 h1:HA4tp4fa/oCPTCl3gTD2FkRjo+nFKWm4rLmpudxcxXg=
 github.com/L4B0MB4/EVTSRC v0.4.5/go.mod h1:hpyNdNWqikZ6dcm8dhZAXgnAXZQNGAfXgRw902zjby0=
+github.com/L4B0MB4/EVTSRC v0.5.1 h1:EB/lK0FTWtepToOtRFJdUhBf6tlb1L0bIRbRTMwArsQ=
+github.com/L4B0MB4/EVTSRC v0.5.1/go.mod h1:hpyNdNWqikZ6dcm8dhZAXgnAXZQNGAfXgRw902zjby0=
 github.com/PRYVT/utils v0.1.2 h1:U9qhq+18iIblQDrM4I0fmJkvlZ+BCY+DIjjKI4ebtlk=
 github.com/PRYVT/utils v0.1.2/go.mod h1:b7zk2FAGwJ8BPJx2JQ8qd+bA59g5EY7Y1vZQPWZHK3s=
 github.com/PRYVT/utils v0.2.0 h1:hWdHchXlGOYlJ1nfMmGffq/EjFn3ncvzTgsGCLUpiEE=
 github.com/PRYVT/utils v0.2.0/go.mod h1:j61GmoyWWXgnCq/laZTIJm4yhD0PreLDMZnYQqjSv7w=
+github.com/PRYVT/utils v0.2.1 h1:GiTbziM3lqRLc4EWGV28+T/aKaY+B80KTqnkBklf9q0=
+github.com/PRYVT/utils v0.2.1/go.mod h1:j61GmoyWWXgnCq/laZTIJm4yhD0PreLDMZnYQqjSv7w=
 github.com/bytedance/sonic v1.12.2 h1:oaMFuRTpMHYLpCntGca65YWt5ny+wAceDERTkT2L9lg=
 github.com/bytedance/sonic v1.12.2/go.mod h1:B8Gt/XvtZ3Fqj+iSKMypzymZxw/FVwgIGKzMzT9r/rk=
 github.com/bytedance/sonic/loader v0.1.1/go.mod h1:ncP89zfokxS5LZrJxl5z0UJcsk4M4yY2JpfqGeCtNLU=
