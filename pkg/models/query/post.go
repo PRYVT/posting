@@ -7,8 +7,9 @@ import (
 )
 
 type Post struct {
-	Id          uuid.UUID
-	Text        string
-	ImageBase64 string
-	ChangeDate  time.Time
+	Id          uuid.UUID `json:"id" binding:"required"`
+	Text        string    `json:"text"`
+	ImageBase64 string    `json:"image_base64"`
+	ChangeDate  time.Time `json:"change_date"`
+	UserId      uuid.UUID `json:"user_id"`
 }

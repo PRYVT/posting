@@ -13,13 +13,13 @@ import (
 func main() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-	uc := controller.NewPostController()
 	tokenManager, err := auth.NewTokenManager()
 	if err != nil {
 		log.Error().Err(err).Msg("Unsuccessful initialization of token manager")
 		return
 	}
 	aut := auth.NewAuthMiddleware(tokenManager)
+	uc := controller.NewPostController(tokenManager)
 	h := httphandler.NewHttpHandler(uc, aut)
 
 	h.Start()

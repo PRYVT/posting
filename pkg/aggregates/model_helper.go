@@ -8,5 +8,6 @@ func GetPostModelFromAggregate(userAggregate *PostAggregate) *query.Post {
 		Text:        userAggregate.Text,
 		ImageBase64: userAggregate.ImageBase64,
 		ChangeDate:  userAggregate.ChangeDate,
+		UserId:      userAggregate.UserId,
 	}
 }
