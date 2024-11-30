@@ -71,7 +71,8 @@ func createPostTable(db *sql.DB) error {
 		user_id TEXT,
 		text TEXT,
 		image_base64 TEXT,
-		change_date TEXT
+		change_date TEXT,
+		"order" INTEGER AUTOINCREMENT
 	);`
 
 	_, err := db.Exec(query)
