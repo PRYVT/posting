@@ -50,7 +50,7 @@ func (repo *PostRepository) GetAllPosts(limit, offset int) ([]models.Post, error
 	if limit > 100 {
 		limit = 100
 	}
-	stmt, err := repo.db.Prepare("SELECT id,  user_id, text, image_base64, change_date FROM posts ORDER BY order desc LIMIT ? OFFSET ?")
+	stmt, err := repo.db.Prepare(`SELECT id,  user_id, text, image_base64, change_date FROM posts ORDER BY "order" desc LIMIT ? OFFSET ?`)
 	if err != nil {
 		return nil, err
 	}

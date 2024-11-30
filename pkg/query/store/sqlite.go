@@ -67,12 +67,12 @@ func (d *DatabaseConnection) IsInitialized() bool {
 func createPostTable(db *sql.DB) error {
 	query := `
 	CREATE TABLE IF NOT EXISTS posts (
-		id TEXT PRIMARY KEY,
+		id TEXT UNIQUE,
 		user_id TEXT,
 		text TEXT,
 		image_base64 TEXT,
 		change_date TEXT,
-		"order" INTEGER AUTOINCREMENT
+		"order" INTEGER PRIMARY KEY
 	);`
 
 	_, err := db.Exec(query)
