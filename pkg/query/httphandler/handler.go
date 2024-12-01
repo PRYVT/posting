@@ -15,9 +15,10 @@ type HttpHandler struct {
 	router         *gin.Engine
 	postController *controller.PostController
 	authMiddleware *auth.AuthMiddleware
+	wsController   *controller.WSController
 }
 
-func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware) *HttpHandler {
+func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware, wsController *controller.WSController) *HttpHandler {
 	r := gin.Default()
 	srv := &http.Server{
 		Addr:    "0.0.0.0" + ":" + "5520",
@@ -28,6 +29,7 @@ func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware) *Http
 		httpServer:     srv,
 		postController: c,
 		authMiddleware: am,
+		wsController:   wsController,
 	}
 	handler.RegisterRoutes()
 	return handler
@@ -35,6 +37,7 @@ func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware) *Http
 
 func (h *HttpHandler) RegisterRoutes() {
 	h.router.Use(auth.CORSMiddleware())
+	h.router.GET("/ws", h.wsController.OnRequest)
 	h.router.Use(h.authMiddleware.AuthenticateMiddleware)
 	{
 		h.router.GET("posts/:postId", h.postController.GetPost)
