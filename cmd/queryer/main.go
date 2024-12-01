@@ -59,6 +59,7 @@ func main() {
 				log.Info().Msgf("Received event: %s", event)
 				eventPolling.PollEventsUntilEmpty()
 			}
+			log.Debug().Msg("New event received finished")
 		}
 	}()
 	h.Start()
