@@ -53,12 +53,9 @@ func main() {
 
 	eventPolling.PollEventsUntilEmpty()
 	go func() {
-		for {
-			select {
-			case event := <-channel:
-				log.Info().Msgf("Received event: %s", event)
-				eventPolling.PollEventsUntilEmpty()
-			}
+		for event := range channel {
+			log.Info().Msgf("Received event: %s", event)
+			eventPolling.PollEventsUntilEmpty()
 			log.Debug().Msg("New event received finished")
 		}
 	}()
