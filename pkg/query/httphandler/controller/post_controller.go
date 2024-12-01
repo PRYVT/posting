@@ -6,17 +6,17 @@ import (
 	"github.com/PRYVT/posting/pkg/models/query"
 	"github.com/PRYVT/posting/pkg/query/store/repository"
 	"github.com/PRYVT/posting/pkg/query/utils"
-	"github.com/PRYVT/utils/pkg/auth"
+	"github.com/PRYVT/utils/pkg/eventpolling"
 	"github.com/gin-gonic/gin"
 )
 
 type PostController struct {
-	postRepo     *repository.PostRepository
-	tokenManager *auth.TokenManager
+	postRepo   *repository.PostRepository
+	userEventH eventpolling.EventHanlder
 }
 
-func NewPostController(userRepo *repository.PostRepository, tokenManager *auth.TokenManager) *PostController {
-	return &PostController{postRepo: userRepo, tokenManager: tokenManager}
+func NewPostController(userRepo *repository.PostRepository, userEventH eventpolling.EventHanlder) *PostController {
+	return &PostController{postRepo: userRepo, userEventH: userEventH}
 }
 
 func (ctrl *PostController) GetPost(c *gin.Context) {

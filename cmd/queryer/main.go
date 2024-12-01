@@ -33,18 +33,13 @@ func main() {
 		log.Error().Err(err).Msg("Unsuccessful initialization of client")
 		return
 	}
-	tokenManager, err := auth.NewTokenManager()
-	if err != nil {
-		log.Error().Err(err).Msg("Unsuccessful initialization of token manager")
-		return
-	}
 	eventRepo := utilsRepo.NewEventRepository(conn)
 	userRepo := repository.NewUserRepository(conn)
-	uc := controller.NewPostController(userRepo, tokenManager)
-	aut := auth.NewAuthMiddleware(tokenManager)
-	h := httphandler.NewHttpHandler(uc, aut)
-
 	userEventHandler := eventhandling.NewPostEventHandler(userRepo)
+	uc := controller.NewPostController(userRepo, userEventHandler)
+	aut := auth.NewAuthMiddleware()
+	wsH := controller.NewWsController(userEventHandler)
+	h := httphandler.NewHttpHandler(uc, aut, wsH)
 
 	eventPolling := eventpolling.NewEventPolling(c, eventRepo, userEventHandler)
 

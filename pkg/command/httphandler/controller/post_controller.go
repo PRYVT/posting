@@ -11,17 +11,16 @@ import (
 )
 
 type PostController struct {
-	tokenManager *auth.TokenManager
 }
 
-func NewPostController(tokenManager *auth.TokenManager) *PostController {
-	return &PostController{tokenManager: tokenManager}
+func NewPostController() *PostController {
+	return &PostController{}
 }
 
 func (ctrl *PostController) CreatePost(c *gin.Context) {
 
 	token := auth.GetTokenFromHeader(c)
-	userUuid, err := ctrl.tokenManager.GetUserUuidFromToken(token)
+	userUuid, err := auth.GetUserUuidFromToken(token)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
