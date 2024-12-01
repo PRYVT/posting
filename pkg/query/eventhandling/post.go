@@ -41,17 +41,21 @@ func removeDisconnectedSockets(slice []*ws.WebsocketConnection) []*ws.WebsocketC
 }
 
 func (eh *PostEventHandler) HandleEvent(event models.Event) error {
+	log.Debug().Msg("Handling event")
 	if event.AggregateType == "post" {
+		log.Debug().Msg("Handling post event")
 		ua, err := aggregates.NewPostAggregate(uuid.MustParse(event.AggregateId))
 		if err != nil {
 			return err
 		}
 		p := aggregates.GetPostModelFromAggregate(ua)
+		log.Debug().Msg("About to add Post to repository")
 		err = eh.postRepo.AddOrReplacePost(p)
 		if err != nil {
 			log.Err(err).Msg("Error while processing user event")
 			return err
 		}
+		log.Debug().Msg("Post added to repository")
 		for _, conn := range eh.wsConnections {
 			if !conn.IsAuthenticated {
 				continue
