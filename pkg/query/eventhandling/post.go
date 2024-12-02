@@ -41,7 +41,9 @@ func removeDisconnectedSockets(slice []*ws.WebsocketConnection) []*ws.WebsocketC
 }
 
 func (eh *PostEventHandler) HandleEvent(event models.Event) error {
+	log.Debug().Msg("Handling event")
 	if event.AggregateType == "post" {
+		log.Debug().Msg("Handling post event")
 		ua, err := aggregates.NewPostAggregate(uuid.MustParse(event.AggregateId))
 		if err != nil {
 			return err
@@ -64,7 +66,7 @@ func (eh *PostEventHandler) HandleEvent(event models.Event) error {
 		eh.mu.Lock()
 		defer eh.mu.Unlock()
 		eh.wsConnections = removeDisconnectedSockets(eh.wsConnections)
-
+		log.Trace().Msgf("Number of active connections: %d", len(eh.wsConnections))
 	}
 	return nil
 }

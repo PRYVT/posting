@@ -45,6 +45,7 @@ func (wC *WebsocketConnection) ReadForDisconnect() {
 			wC.IsConnected = false
 			break
 		} else {
+			log.Debug().Interface("authReq", authRequest).Msg("Received auth request")
 			_, err = auth.VerifyToken(authRequest.Token)
 			if err != nil {
 				log.Debug().Err(err).Msg("Error while verifying token")
