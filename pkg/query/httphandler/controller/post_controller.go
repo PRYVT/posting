@@ -6,16 +6,16 @@ import (
 	"github.com/PRYVT/posting/pkg/models/query"
 	"github.com/PRYVT/posting/pkg/query/store/repository"
 	"github.com/PRYVT/posting/pkg/query/utils"
-	"github.com/PRYVT/utils/pkg/eventpolling"
+	"github.com/PRYVT/utils/pkg/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type PostController struct {
 	postRepo   *repository.PostRepository
-	userEventH eventpolling.EventHanlder
+	userEventH interfaces.EventHandler
 }
 
-func NewPostController(userRepo *repository.PostRepository, userEventH eventpolling.EventHanlder) *PostController {
+func NewPostController(userRepo *repository.PostRepository, userEventH interfaces.EventHandler) *PostController {
 	return &PostController{postRepo: userRepo, userEventH: userEventH}
 }
 

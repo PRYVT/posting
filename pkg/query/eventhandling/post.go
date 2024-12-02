@@ -6,34 +6,34 @@ import (
 	"github.com/L4B0MB4/EVTSRC/pkg/models"
 	"github.com/PRYVT/posting/pkg/aggregates"
 	"github.com/PRYVT/posting/pkg/query/store/repository"
-	ws "github.com/PRYVT/posting/pkg/query/websocket"
+	"github.com/PRYVT/utils/pkg/interfaces"
 	"github.com/google/uuid"
 	"github.com/rs/zerolog/log"
 )
 
 type PostEventHandler struct {
 	postRepo      *repository.PostRepository
-	wsConnections []*ws.WebsocketConnection
+	wsConnections []interfaces.WebsocketConnecter
 	mu            sync.Mutex
 }
 
 func NewPostEventHandler(postRepo *repository.PostRepository) *PostEventHandler {
 	return &PostEventHandler{
 		postRepo:      postRepo,
-		wsConnections: []*ws.WebsocketConnection{},
+		wsConnections: []interfaces.WebsocketConnecter{},
 	}
 }
 
-func (eh *PostEventHandler) AddWebsocketConnection(conn *ws.WebsocketConnection) {
+func (eh *PostEventHandler) AddWebsocketConnection(conn interfaces.WebsocketConnecter) {
 	eh.mu.Lock()
 	defer eh.mu.Unlock()
 	eh.wsConnections = append(eh.wsConnections, conn)
 }
 
-func removeDisconnectedSockets(slice []*ws.WebsocketConnection) []*ws.WebsocketConnection {
-	output := []*ws.WebsocketConnection{}
+func removeDisconnectedSockets(slice []interfaces.WebsocketConnecter) []interfaces.WebsocketConnecter {
+	output := []interfaces.WebsocketConnecter{}
 	for _, element := range slice {
-		if element.IsConnected {
+		if element.IsConnected() {
 			output = append(output, element)
 		}
 	}
@@ -55,7 +55,7 @@ func (eh *PostEventHandler) HandleEvent(event models.Event) error {
 			return err
 		}
 		for _, conn := range eh.wsConnections {
-			if !conn.IsAuthenticated {
+			if !conn.IsAuthenticated() {
 				continue
 			}
 			err := conn.WriteJSON(p)
