@@ -37,7 +37,7 @@ func main() {
 	eventRepo := utilsRepo.NewEventRepository(conn)
 	userRepo := repository.NewUserRepository(conn)
 	postEventHandler := eventhandling.NewPostEventHandler(userRepo)
-	uc := controller.NewPostController(userRepo, postEventHandler)
+	uc := controller.NewPostController(userRepo)
 	aut := auth.NewAuthMiddleware()
 	wsH := websocket.NewWsController(postEventHandler)
 	h := httphandler.NewHttpHandler(uc, aut, wsH)

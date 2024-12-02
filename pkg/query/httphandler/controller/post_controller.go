@@ -6,17 +6,15 @@ import (
 	"github.com/PRYVT/posting/pkg/models/query"
 	"github.com/PRYVT/posting/pkg/query/store/repository"
 	"github.com/PRYVT/posting/pkg/query/utils"
-	"github.com/PRYVT/utils/pkg/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type PostController struct {
-	postRepo   *repository.PostRepository
-	userEventH interfaces.EventHandler
+	postRepo *repository.PostRepository
 }
 
-func NewPostController(userRepo *repository.PostRepository, userEventH interfaces.EventHandler) *PostController {
-	return &PostController{postRepo: userRepo, userEventH: userEventH}
+func NewPostController(userRepo *repository.PostRepository) *PostController {
+	return &PostController{postRepo: userRepo}
 }
 
 func (ctrl *PostController) GetPost(c *gin.Context) {
