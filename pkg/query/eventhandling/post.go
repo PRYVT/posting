@@ -49,13 +49,11 @@ func (eh *PostEventHandler) HandleEvent(event models.Event) error {
 			return err
 		}
 		p := aggregates.GetPostModelFromAggregate(ua)
-		log.Debug().Msg("About to add Post to repository")
 		err = eh.postRepo.AddOrReplacePost(p)
 		if err != nil {
 			log.Err(err).Msg("Error while processing user event")
 			return err
 		}
-		log.Debug().Msg("Post added to repository")
 		for _, conn := range eh.wsConnections {
 			if !conn.IsAuthenticated {
 				continue
@@ -68,7 +66,7 @@ func (eh *PostEventHandler) HandleEvent(event models.Event) error {
 		eh.mu.Lock()
 		defer eh.mu.Unlock()
 		eh.wsConnections = removeDisconnectedSockets(eh.wsConnections)
-
+		log.Trace().Msgf("Number of active connections: %d", len(eh.wsConnections))
 	}
 	return nil
 }
