@@ -4,7 +4,7 @@ go 1.23.1
 
 require (
 	github.com/L4B0MB4/EVTSRC v0.5.4 // indirect
-	github.com/PRYVT/utils v0.3.0-rc // indirect
+	github.com/PRYVT/utils v0.4.0 // indirect
 	github.com/bytedance/sonic v1.12.2 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect

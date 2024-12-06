@@ -13,6 +13,7 @@ import (
 	"github.com/PRYVT/utils/pkg/auth"
 	"github.com/PRYVT/utils/pkg/eventpolling"
 	utilsRepo "github.com/PRYVT/utils/pkg/store/repository"
+	"github.com/PRYVT/utils/pkg/websocket"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -35,13 +36,13 @@ func main() {
 	}
 	eventRepo := utilsRepo.NewEventRepository(conn)
 	userRepo := repository.NewUserRepository(conn)
-	userEventHandler := eventhandling.NewPostEventHandler(userRepo)
-	uc := controller.NewPostController(userRepo, userEventHandler)
+	postEventHandler := eventhandling.NewPostEventHandler(userRepo)
+	uc := controller.NewPostController(userRepo)
 	aut := auth.NewAuthMiddleware()
-	wsH := controller.NewWsController(userEventHandler)
+	wsH := websocket.NewWsController(postEventHandler)
 	h := httphandler.NewHttpHandler(uc, aut, wsH)
 
-	eventPolling := eventpolling.NewEventPolling(c, eventRepo, userEventHandler)
+	eventPolling := eventpolling.NewEventPolling(c, eventRepo, postEventHandler)
 
 	tcpC, err := tcpClient.NewTcpEventClient()
 	if err != nil {

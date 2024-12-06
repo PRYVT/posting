@@ -6,6 +6,7 @@ import (
 
 	"github.com/PRYVT/posting/pkg/query/httphandler/controller"
 	"github.com/PRYVT/utils/pkg/auth"
+	ws "github.com/PRYVT/utils/pkg/websocket"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 )
@@ -15,10 +16,10 @@ type HttpHandler struct {
 	router         *gin.Engine
 	postController *controller.PostController
 	authMiddleware *auth.AuthMiddleware
-	wsController   *controller.WSController
+	wsController   *ws.WSController
 }
 
-func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware, wsController *controller.WSController) *HttpHandler {
+func NewHttpHandler(c *controller.PostController, am *auth.AuthMiddleware, wsController *ws.WSController) *HttpHandler {
 	r := gin.Default()
 	srv := &http.Server{
 		Addr:    "0.0.0.0" + ":" + "5520",
